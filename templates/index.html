@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medicine Reminder</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <div class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <span class="logo">💊</span>
+        <h1>Medicine Reminder</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-link active" data-view="dashboard">Dashboard</button>
+        <button class="nav-link" data-view="medicines">Medicines</button>
+        <button class="nav-link" data-view="add-medicine">Add Medicine</button>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+
+      <!-- DASHBOARD VIEW -->
+      <section id="dashboard-view" class="view active">
+        <header class="view-header">
+          <h2>Dashboard</h2>
+          <button class="btn btn-primary" data-nav="add-medicine">+ Add Medicine</button>
+        </header>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">Total Medicines</span>
+            <span class="stat-value" id="stat-total">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Today's Doses</span>
+            <span class="stat-value" id="stat-today">0</span>
+          </div>
+          <div class="stat-card stat-taken">
+            <span class="stat-label">Taken</span>
+            <span class="stat-value" id="stat-taken">0</span>
+          </div>
+          <div class="stat-card stat-pending">
+            <span class="stat-label">Pending</span>
+            <span class="stat-value" id="stat-pending">0</span>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="panel">
+            <h3>Today's Medicines</h3>
+            <div id="today-list" class="medicine-mini-list">
+              <p class="empty-state">No medicines scheduled for today.</p>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Upcoming Medicines</h3>
+            <div id="upcoming-list" class="medicine-mini-list">
+              <p class="empty-state">No upcoming medicines.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MEDICINES VIEW -->
+      <section id="medicines-view" class="view">
+        <header class="view-header">
+          <h2>All Medicines</h2>
+          <button class="btn btn-primary" data-nav="add-medicine">+ Add Medicine</button>
+        </header>
+        <div id="medicines-table-wrap">
+          <table class="medicines-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Dosage</th>
+                <th>Time</th>
+                <th>Frequency</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="medicines-tbody">
+              <!-- rows injected by script.js -->
+            </tbody>
+          </table>
+          <p id="medicines-empty" class="empty-state" style="display:none;">No medicines added yet.</p>
+        </div>
+      </section>
+
+      <!-- ADD MEDICINE VIEW -->
+      <section id="add-medicine-view" class="view">
+        <header class="view-header">
+          <h2 id="form-title">Add Medicine</h2>
+        </header>
+        <form id="medicine-form" class="medicine-form">
+          <input type="hidden" id="medicine-id" value="">
+
+          <div class="form-row">
+            <label for="name">Medicine Name *</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+
+          <div class="form-row">
+            <label for="dosage">Dosage *</label>
+            <input type="text" id="dosage" name="dosage" placeholder="e.g. 500mg" required>
+          </div>
+
+          <div class="form-row">
+            <label for="time">Time *</label>
+            <input type="time" id="time" name="time" required>
+          </div>
+
+          <div class="form-row">
+            <label for="frequency">Frequency *</label>
+            <select id="frequency" name="frequency" required>
+              <option value="">Select...</option>
+              <option value="Once Daily">Once Daily</option>
+              <option value="Twice Daily">Twice Daily</option>
+              <option value="Thrice Daily">Thrice Daily</option>
+              <option value="Weekly">Weekly</option>
+              <option value="As Needed">As Needed</option>
+            </select>
+          </div>
+
+          <div class="form-row form-row-split">
+            <div>
+              <label for="start_date">Start Date *</label>
+              <input type="date" id="start_date" name="start_date" required>
+            </div>
+            <div>
+              <label for="end_date">End Date *</label>
+              <input type="date" id="end_date" name="end_date" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label for="notes">Notes / Instructions</label>
+            <textarea id="notes" name="notes" rows="3" placeholder="e.g. Take after food"></textarea>
+          </div>
+
+          <div id="form-error" class="form-error" style="display:none;"></div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="form-submit-btn">Save Medicine</button>
+            <button type="button" class="btn btn-secondary" data-nav="medicines">Cancel</button>
+          </div>
+        </form>
+      </section>
+
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="/static/js/script.js"></script>
+</body>
+</html>
